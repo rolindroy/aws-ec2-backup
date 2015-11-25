@@ -37,10 +37,12 @@ if [ ! -z $desc ];
 then
     echo "Delete the expired images"
     out=`aws ec2 deregister-image --image-id "$desc"`
-    echo $out
+    echo "Ami $desc delete status : "$out
 fi
 
 echo "creating new ami with the instance-id : "$instanceId
 newAmi_id=`aws ec2 create-image --no-reboot --instance-id "$instanceId" --name "$imageName" --output text`
 
 echo $newAmi_id;
+
+echo "success !!"
