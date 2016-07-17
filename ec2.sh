@@ -2,8 +2,8 @@
 
 usage() {
   echo ""
-  echo Usage: $0 [instance-id] [ami-name]
-  echo "    Note: [instance-id] => The ID of the instance."
+  echo Usage: ec2.sh [instance-tagName] [ami-name]
+  echo "    Note: [instance-tagName] => Tag Name of the instance."
   echo "    Note: [ami-name] => The name of the AMI (provided during image creation)"
   echo ""
   exit 1
@@ -19,8 +19,10 @@ then
   usage
 fi
 
-instanceId=$1
+instanceTag=$1
 imageName=$2
+
+instanceId=`aws ec2 describe-instances --filters "Name=tag:Name, Values=$instanceTag" --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
 
 echo "Selecting all AMIs that have the AMI name :" $imageName
 
