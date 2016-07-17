@@ -28,7 +28,10 @@ instanceTag="Website"
 imageName="AMI_Website"
 
 
-instanceId=`aws ec2 describe-instances --filters "Name=tag:Name, Values=$instanceTag" --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
+instanceId=`aws ec2 describe-instances \
+  --filters "Name=tag:Name, Values=$instanceTag" \
+  --query 'Reservations[*].Instances[*].[InstanceId]' \
+  --output text`
 
 echo "Selecting all AMIs that have the AMI name :" $imageName
 
@@ -49,7 +52,9 @@ then
 fi
 
 echo "creating new ami with the instance-id : "$instanceId
-newAmi_id=`aws ec2 create-image --no-reboot --instance-id "$instanceId" --name "$imageName" --output text`
+newAmi_id=`aws ec2 create-image \
+  --no-reboot --instance-id "$instanceId" \
+  --name "$imageName" --output text`
 
 echo $newAmi_id;
 
