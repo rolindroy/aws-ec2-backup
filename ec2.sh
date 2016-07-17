@@ -9,18 +9,24 @@ usage() {
   exit 1
 }
 
-if [ -z "$1" ];
-then
-  usage
-fi
+## ---- use this option for multiple instances.----
+# if [ -z "$1" ];
+# then
+#   usage
+# fi
 
-if [ -z "$2" ];
-then
-  usage
-fi
+# if [ -z "$2" ];
+# then
+#   usage
+# fi
 
-instanceTag=$1
-imageName=$2
+# instanceTag=$1
+# imageName=$2
+##----
+
+instanceTag="Website"
+imageName="AMI_Website"
+
 
 instanceId=`aws ec2 describe-instances --filters "Name=tag:Name, Values=$instanceTag" --query 'Reservations[*].Instances[*].[InstanceId]' --output text`
 
