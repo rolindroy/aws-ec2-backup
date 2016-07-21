@@ -1,13 +1,16 @@
 #!/bin/sh
 
-usage() {
-  
-  cat << "USAGE"
-    Usage : ec2.sh [instance-tagName] [ami-name]
+
+usage()
+{
+cat <<"USAGE"
+
+        Usage : ec2.sh [instance-tagName] [ami-name]
           Note: [instance-tagName] => Tag Name of the instance.
           Note: [ami-name] => The name of the AMI (provided during image creation)
-  USAGE
-  exit 0
+          
+USAGE
+exit 0
 }
 
 ## ---- use this option for multiple instances.----
