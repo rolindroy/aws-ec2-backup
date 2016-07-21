@@ -1,12 +1,13 @@
 #!/bin/sh
 
 usage() {
-  echo ""
-  echo Usage: ec2.sh [instance-tagName] [ami-name]
-  echo "    Note: [instance-tagName] => Tag Name of the instance."
-  echo "    Note: [ami-name] => The name of the AMI (provided during image creation)"
-  echo ""
-  exit 1
+  
+  cat << "USAGE"
+    Usage : ec2.sh [instance-tagName] [ami-name]
+          Note: [instance-tagName] => Tag Name of the instance.
+          Note: [ami-name] => The name of the AMI (provided during image creation)
+  USAGE
+  exit 0
 }
 
 ## ---- use this option for multiple instances.----
