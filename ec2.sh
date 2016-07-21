@@ -2,7 +2,7 @@
 
 usage() {
   
-  cat <<"USAGE"
+  cat << "USAGE"
     Usage : ec2.sh [instance-tagName] [ami-name]
           Note: [instance-tagName] => Tag Name of the instance.
           Note: [ami-name] => The name of the AMI (provided during image creation)
