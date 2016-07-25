@@ -9,6 +9,9 @@ cat <<"USAGE"
           Note: [instance-tagName] => Tag Name of the instance.
           Note: [ami-name] => The name of the AMI (provided during image creation)
           
+        --
+        @author Rolind Roy <hello@rolindroy.com>
+          
 USAGE
 exit 0
 }
@@ -73,4 +76,4 @@ newAmi_id=`aws ec2 create-image \
 
 echo  "INFO:: New AMI Created, AMI Info  : "$instanceId
 
-echo  "SUCCESS:: $(date)\n"
+echo  "SUCC:: Success !! $(date)\n"
