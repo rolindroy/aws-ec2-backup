@@ -76,4 +76,4 @@ newAmi_id=`aws ec2 create-image \
 
 echo  "INFO:: New AMI Created, AMI Info  : "$instanceId
 
-echo  "SUCC:: Success !! $(date)\n"
+echo  "INFO:: Success !! $(date)\n"
