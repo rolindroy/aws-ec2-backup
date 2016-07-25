@@ -52,6 +52,12 @@ if [ ! -z $desc ];
 then
     echo "Delete the expired images"
     out=`aws ec2 deregister-image --image-id "$desc"`
+    
+    snapId=`aws ec2 describe-images --owner self \
+        --filter Name=name,Values="$imageName" \
+        --query 'Images[*].BlockDeviceMappings[*].Ebs[*].{ID:SnapshotId}' \
+        --output text`
+    echo $snapId  
     echo "Ami $desc delete status : "$out
 fi
 
