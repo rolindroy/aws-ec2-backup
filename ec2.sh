@@ -60,7 +60,7 @@ then
     
     snapId=`aws ec2 describe-images --owner self \
         --filter Name=name,Values="$imageName" \
-        --query 'Images[*].BlockDeviceMappings[*].Ebs[*].{ID:SnapshotId}' \
+        --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
         --output text`
         
     echo  "WARN:: Delete Snapshot, Snapshot Id  :" $snapId
