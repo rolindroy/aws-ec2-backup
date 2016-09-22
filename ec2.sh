@@ -59,10 +59,10 @@ desc=`aws ec2 describe-images --owner self \
   --output text`
   
 echo $desc
-n=`echo "$desc" | wc -l`
+n=`echo "$desc" | wc -w`
 echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
-if [ ! -z $desc ] ;
+if [ $n -ge "0" ] ;
 then
     IFS=' ' read -r -a imageArray <<< "$desc"
     for img in "${imageArray[@]}"
