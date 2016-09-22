@@ -69,7 +69,7 @@ then
     do
          #echo "$img"
          imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
-         if [ $imgData -le $deletionDate ] ;
+         if [ $deletionDate > $imgData ] ;
          then
              echo $img
              imgId=`aws ec2 describe-images --owner self \
