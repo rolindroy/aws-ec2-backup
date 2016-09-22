@@ -67,7 +67,24 @@ then
     IFS=' ' read -r -a imageArray <<< "$desc"
     for img in "${imageArray[@]}"
     do
-         echo "$img"
+         #echo "$img"
+         imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
+         if [ $imgData -le $deletionDate ] ;
+         then
+             echo $img
+             imgId=`aws ec2 describe-images --owner self \
+             --filter Name=name,Values="$img" \
+             --query 'Images[*].{ID:ImageId}' \
+             --output text`
+             echo $imgId
+             
+             snapId=`aws ec2 describe-images --owner self \
+            --filter Name=name,Values="$img" \
+            --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
+            --output text`
+            echo $snapId
+             
+         fi
     done
     
     #echo  "WARN:: Delete the expired AMI, AMI Id  :" $desc
