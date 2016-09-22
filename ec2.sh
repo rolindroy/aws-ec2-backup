@@ -55,7 +55,7 @@ echo  "INFO:: # of images exist with the name of $imageName is  :" $n
 if [ ! -z $desc ];
 then
     echo  "WARN:: Delete the expired AMI, AMI Id  :" $desc
-    out=`aws ec2 deregister-image --image-id "$desc"`
+  #  out=`aws ec2 deregister-image --image-id "$desc"`
     echo  "INFO:: Ami $desc delete status  : "$out
     
     snapId=`aws ec2 describe-images --owner self \
@@ -64,7 +64,7 @@ then
         --output text`
         
     echo  "WARN:: Delete Snapshot, Snapshot Id  :" $snapId
-    snapOut=`aws ec2 delete-snapshot --snapshot-id "$snapId"`
+ #   snapOut=`aws ec2 delete-snapshot --snapshot-id "$snapId"`
     echo  "INFO:: Snapshot $snapId delete status  : "$out
 fi
 
