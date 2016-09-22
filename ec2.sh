@@ -62,7 +62,7 @@ echo $desc
 n=`echo "$desc" | wc -l`
 echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
-if [ ! -z $desc ];
+if [ ! -z $desc ] ;
 then
     IFS=' ' read -r -a imageArray <<< "$desc"
     for img in "${imageArray[@]}"
