@@ -55,14 +55,21 @@ echo  "INFO:: Selecting all AMIs that have the AMI prefix " $imageNamePrefix
 
 desc=`aws ec2 describe-images --owner self \
   --filter Name=name,Values="$imageNamePrefix*" \
-  --query 'Images[*].{ID:ImageId}' \
+  --query 'Images[*].Name' \
   --output text`
+  
 echo $desc
 n=`echo "$desc" | wc -l`
 echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
-#if [ ! -z $desc ];
-#then
+if [ ! -z $desc ];
+then
+    IFS=' ' read -r -a imageArray <<< "$desc"
+    for img in "${imageArray[@]}"
+    do
+         echo "$img"
+    done
+    
     #echo  "WARN:: Delete the expired AMI, AMI Id  :" $desc
   #  out=`aws ec2 deregister-image --image-id "$desc"`
     #echo  "INFO:: Ami $desc delete status  : "$out
@@ -75,7 +82,7 @@ echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" 
   #  echo  "WARN:: Delete Snapshot, Snapshot Id  :" $snapId
  #   snapOut=`aws ec2 delete-snapshot --snapshot-id "$snapId"`
  #   echo  "INFO:: Snapshot $snapId delete status  : "$out
-#fi
+fi
 
 #echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
 
