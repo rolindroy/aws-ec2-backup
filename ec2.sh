@@ -57,7 +57,7 @@ desc=`aws ec2 describe-images --owner self \
   --filter Name=name,Values="$imageNamePrefix*" \
   --query 'Images[*].{ID:ImageId}' \
   --output text`
-
+echo $desc
 n=`echo "$desc" | wc -l`
 echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
@@ -79,10 +79,10 @@ echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" 
 
 #echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
 
-newAmi_id=`aws ec2 create-image \
-  --no-reboot --instance-id "$instanceId" \
-  --name "$imageName" --output text`
+#newAmi_id=`aws ec2 create-image \
+#  --no-reboot --instance-id "$instanceId" \
+#  --name "$imageName" --output text`
 
-echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
+#echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
 
-echo  "INFO:: Success !! $(date)\n"
+#echo  "INFO:: Success !! $(date)\n"
