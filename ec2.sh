@@ -33,12 +33,15 @@ exit 0
 
 ##Todo
 instanceTag="Website"
-noOfDays=1
+noOfDays="2day"
 
 imageNamePrefix="AMI_"$instanceTag"_"
-currentDate=`date -u +%Y_%m_%d`
+currentDate=`date -u +%Y%m%d`
 imageName=$imageNamePrefix$currentDate
+deletionDate=`date -u -d '-$noOfDays' +%Y%m%d
 
+echo $currentDate
+echo $deletionDate
 
 echo  "\nINFO:: Initializing Backup Script - Time  :" $(date)
 echo  "INFO:: Describing Ec2 Instance with Tag Name $instanceTag !"
