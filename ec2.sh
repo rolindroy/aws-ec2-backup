@@ -35,7 +35,7 @@ exit 0
 instanceTag="Website"
 noOfDays=1
 
-imageNamePrefix="AMI_$instanceTag_"
+imageNamePrefix="AMI_"$instanceTag"_"
 currentDate=`date -u +%Y_%m_%d`
 imageName=$imageNamePrefix$currentDate
 
@@ -56,7 +56,7 @@ desc=`aws ec2 describe-images --owner self \
   --output text`
 
 n=`echo "$desc" | wc -l`
-echo  "INFO:: # of images exist with the name of $imageName is  :" $n
+echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
 #if [ ! -z $desc ];
 #then
