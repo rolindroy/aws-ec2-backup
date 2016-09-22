@@ -33,12 +33,12 @@ exit 0
 
 ##Todo
 instanceTag="Website"
-noOfDays="2day"
+deletionDate=`date -u -d '-2day' +%Y%m%d
 
 imageNamePrefix="AMI_"$instanceTag"_"
 currentDate=`date -u +%Y%m%d`
 imageName=$imageNamePrefix$currentDate
-deletionDate=`date -u -d '-$noOfDays' +%Y%m%d
+
 
 echo $currentDate
 echo $deletionDate
