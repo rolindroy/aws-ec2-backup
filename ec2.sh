@@ -71,30 +71,34 @@ then
 		
 		if [ $deletionDate -gt $imagedate ]; 
 		then
-			echo  "INFO:: Finding Expired AMI Information."
 			expire_ami=`aws ec2 describe-images --owner self \
 			  --filter Name=name,Values="$img" \
 			  --query 'Images[*].{ID:ImageId}' \
 			  --output text`
-			echo  "INFO:: Expired AMI ID  : "$expire_ami
 			
-			echo  "INFO:: Finding Expired Snapshot Information."
 			expire_snap=`aws ec2 describe-images --owner self \
 		   --filter Name=name,Values="$imageName" \
 		   --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
 		   --output text`
-		   echo  "INFO:: Expired Snap ID  : "$expire_snap
+		   
+		   echo  "\e[32;1m WARN:: Removing Expired AMI $expire_ami \e[0m"
+		   delete_ami=`aws ec2 deregister-image --image-id "$expire_ami"`
+		   echo  "INFO:: AMI $expire_ami removed. Status : $delete_ami"
+		  
+		   echo  "\e[32;1m WARN:: Removing Expired Snaphost $expire_snap \e[0m"
+		   delete_snap=`aws ec2 delete-snapshot --snapshot-id "$expire_snap"`
+		   echo  "INFO:: Snapshot $expire_snap removed. Status : $delete_snap"
 		   
 		fi
     done
 fi
 
-# echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
+echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
 
-# newAmi_id=`aws ec2 create-image \
- # --no-reboot --instance-id "$instanceId" \
- # --name "$imageName" --output text`
+newAmi_id=`aws ec2 create-image \
+ --no-reboot --instance-id "$instanceId" \
+ --name "$imageName" --output text`
 
-# echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
+echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
 
-# echo  "INFO:: Success !! $(date)\n"
+echo  "INFO:: Success !! $(date)\n"
