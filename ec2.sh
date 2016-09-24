@@ -1,7 +1,7 @@
 #!/bin/bash
 ##Todo
 instanceTag="Website"
-deletionDate=`date -u -d '-2day' +%Y%m%d`
+deletionDate=`date -u -d '-1day' +%Y%m%d`
 
 imageNamePrefix="AMI_"$instanceTag"_"
 currentDate=`date -u +%Y%m%d`
