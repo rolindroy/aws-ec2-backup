@@ -1,36 +1,4 @@
 #!/bin/bash
-
-
-usage()
-{
-cat <<"USAGE"
-
-        Usage : ec2.sh [instance-tagName] [ami-name]
-          Note: [instance-tagName] => Tag Name of the instance.
-          Note: [ami-name] => The name of the AMI (provided during image creation)
-          
-        --
-        @author Rolind Roy <hello@rolindroy.com>
-          
-USAGE
-exit 0
-}
-
-## ---- use this option for multiple instances.----
-# if [ -z "$1" ];
-# then
-#   usage
-# fi
-
-# if [ -z "$2" ];
-# then
-#   usage
-# fi
-
-# instanceTag=$1
-# imageName=$2
-##----
-
 ##Todo
 instanceTag="Website"
 deletionDate=`date -u -d '-2day' +%Y%m%d`
@@ -67,8 +35,6 @@ then
     for img in $desc
     do
 		imagedate=`echo $img |  awk -F_ '{ print $3 }'`
-		echo -e $imagedate "\n"
-		
 		if [ $deletionDate -gt $imagedate ]; 
 		then
 			expire_ami=`aws ec2 describe-images --owner self \
@@ -77,7 +43,7 @@ then
 			  --output text`
 			
 			expire_snap=`aws ec2 describe-images --owner self \
-		   --filter Name=name,Values="$imageName" \
+		   --filter Name=name,Values="$img" \
 		   --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
 		   --output text`
 		   
