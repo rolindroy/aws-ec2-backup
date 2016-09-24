@@ -72,7 +72,8 @@ then
     done
 fi
 
-    #echo  "WARN:: Delete the expired AMI, AMI Id  :" $desc
+    #echo  "WARN:: Delete the expired AMI, AMI Ids	  :" $desc
+    #echo  "WARN:: Delete the expired AMI, AMI Ids  :" $desc
   #  out=`aws ec2 deregister-image --image-id "$desc"`
     #echo  "INFO:: Ami $desc delete status  : "$out
     
