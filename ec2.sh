@@ -66,7 +66,7 @@ if [ $n -ge "0" ] ;
 then
     IFS=' ' read -r -a imageArray <<< "$desc"
 	
-    for img in $desc"
+    for img in $desc
     do
 		echo -e $img "\n"
     done
