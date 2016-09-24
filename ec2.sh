@@ -67,7 +67,6 @@ then
     IFS=' ' read -r -a imageArray <<< "$desc"
     for img in "${imageArray[@]}"
     do
-         echo "$img"
          imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
          echo $imgDate
          if [ $deletionDate -gt $imgDate ] ;
