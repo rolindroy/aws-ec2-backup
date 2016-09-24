@@ -68,7 +68,8 @@ then
 	
     for img in $desc
     do
-		echo -e $img "\n"
+		imagedate=`echo $img | aws -F'_' '{ print $3 }'`
+		echo -e $imagedate "\n"
     done
 fi
 
