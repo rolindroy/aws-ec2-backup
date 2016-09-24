@@ -62,31 +62,31 @@ echo $desc
 n=`echo "$desc" | wc -w`
 echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" $n
 
-if [ $n -ge "0" ] ;
-then
-    IFS=' ' read -r -a imageArray <<< "$desc"
-    for img in "${imageArray[@]}"
-    do
-         #echo "$img"
-         imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
-         echo $imgDate
-         if [ $deletionDate -gt $imgDate ] ;
-         then
-             echo $img
-             imgId=`aws ec2 describe-images --owner self \
-             --filter Name=name,Values="$img" \
-             --query 'Images[*].{ID:ImageId}' \
-             --output text`
-             echo $imgId
+# if [ $n -ge "0" ] ;
+# then
+    # IFS=' ' read -r -a imageArray <<< "$desc"
+    # for img in "${imageArray[@]}"
+    # do
+         # echo "$img"
+         # imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
+         # echo $imgDate
+         # if [ $deletionDate -gt $imgDate ] ;
+         # then
+             # echo $img
+             # imgId=`aws ec2 describe-images --owner self \
+             # --filter Name=name,Values="$img" \
+             # --query 'Images[*].{ID:ImageId}' \
+             # --output text`
+             # echo $imgId
              
-             snapId=`aws ec2 describe-images --owner self \
-            --filter Name=name,Values="$img" \
-            --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
-            --output text`
-            echo $snapId
+             # snapId=`aws ec2 describe-images --owner self \
+            # --filter Name=name,Values="$img" \
+            # --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
+            # --output text`
+            # echo $snapId
              
-         fi
-    done
+         # fi
+    # done
     
     #echo  "WARN:: Delete the expired AMI, AMI Id  :" $desc
   #  out=`aws ec2 deregister-image --image-id "$desc"`
@@ -100,14 +100,14 @@ then
   #  echo  "WARN:: Delete Snapshot, Snapshot Id  :" $snapId
  #   snapOut=`aws ec2 delete-snapshot --snapshot-id "$snapId"`
  #   echo  "INFO:: Snapshot $snapId delete status  : "$out
-fi
+# fi
 
-#echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
+echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
 
-#newAmi_id=`aws ec2 create-image \
-#  --no-reboot --instance-id "$instanceId" \
-#  --name "$imageName" --output text`
+newAmi_id=`aws ec2 create-image \
+ --no-reboot --instance-id "$instanceId" \
+ --name "$imageName" --output text`
 
-#echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
+echo  "INFO:: New AMI Created, AMI Info  : "$newAmi_id
 
-#echo  "INFO:: Success !! $(date)\n"
+echo  "INFO:: Success !! $(date)\n"
