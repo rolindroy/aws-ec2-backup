@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 usage()
@@ -65,6 +65,7 @@ echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" 
 if [ $n -ge "0" ] ;
 then
     IFS=' ' read -r -a imageArray <<< "$desc"
+	
     for img in "${imageArray[@]}"
     do
 		echo -e $img "\n"
