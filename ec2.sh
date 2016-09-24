@@ -68,21 +68,21 @@ then
     for img in "${imageArray[@]}"
     do
          imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
-         echo $imgDate
+         echo "\n$img -$imgDate"
          if [ $deletionDate -gt $imgDate ] ;
          then
-             echo $img
-             imgId=`aws ec2 describe-images --owner self \
-             --filter Name=name,Values="$img" \
-             --query 'Images[*].{ID:ImageId}' \
-             --output text`
-             echo $imgId
+             # echo $img
+             # imgId=`aws ec2 describe-images --owner self \
+             # --filter Name=name,Values="$img" \
+             # --query 'Images[*].{ID:ImageId}' \
+             # --output text`
+             # echo $imgId
              
-             snapId=`aws ec2 describe-images --owner self \
-            --filter Name=name,Values="$img" \
-            --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
-            --output text`
-            echo $snapId
+             # snapId=`aws ec2 describe-images --owner self \
+            # --filter Name=name,Values="$img" \
+            # --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
+            # --output text`
+            # echo $snapId
              
          fi
     done
