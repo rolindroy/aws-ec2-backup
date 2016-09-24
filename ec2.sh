@@ -64,29 +64,30 @@ echo  "INFO:: # of images exist with the prefix name of $imageNamePrefix is  :" 
 
 if [ $n -ge "0" ] ;
 then
-    IFS=' ' read -r -a imageArray <<< "$desc"
-	
     for img in $desc
     do
 		imagedate=`echo $img |  awk -F_ '{ print $3 }'`
 		echo -e $imagedate "\n"
+		
+		if [ $deletionDate -gt $imagedate ]; 
+		then
+			echo  "INFO:: Finding Expired AMI Information."
+			expire_ami=`aws ec2 describe-images --owner self \
+			  --filter Name=name,Values="$img" \
+			  --query 'Images[*].{ID:ImageId}' \
+			  --output text`
+			echo  "INFO:: Expired AMI ID  : "$expire_ami
+			
+			echo  "INFO:: Finding Expired Snapshot Information."
+			expire_snap=`aws ec2 describe-images --owner self \
+		   --filter Name=name,Values="$imageName" \
+		   --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
+		   --output text`
+		   echo  "INFO:: Expired Snap ID  : "$expire_snap
+		   
+		fi
     done
 fi
-
-    #echo  "WARN:: Delete the expired AMI, AMI Ids	  :" $desc
-    #echo  "WARN:: Delete the expired AMI, AMI Ids  :" $desc
-  #  out=`aws ec2 deregister-image --image-id "$desc"`
-    #echo  "INFO:: Ami $desc delete status  : "$out
-    
-   # snapId=`aws ec2 describe-images --owner self \
-    #    --filter Name=name,Values="$imageName" \
-     #   --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
-      #  --output text`
-        
-  #  echo  "WARN:: Delete Snapshot, Snapshot Id  :" $snapId
- #   snapOut=`aws ec2 delete-snapshot --snapshot-id "$snapId"`
- #   echo  "INFO:: Snapshot $snapId delete status  : "$out
- 
 
 # echo  "INFO:: Creating new ami with the instance-id  : "$instanceId
 
