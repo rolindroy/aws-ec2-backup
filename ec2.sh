@@ -68,9 +68,10 @@ then
     for img in "${imageArray[@]}"
     do
          imgDate=`echo "$img" | awk -F'_' '{ print $3 }'`
-         echo "\n$img -$imgDate"
-         if [ $deletionDate -gt $imgDate ] ;
-         then
+         echo "\n $img - $imgDate "
+		 
+         # if [ $deletionDate -gt $imgDate ] ;
+         # then
              # echo $img
              # imgId=`aws ec2 describe-images --owner self \
              # --filter Name=name,Values="$img" \
@@ -84,7 +85,7 @@ then
             # --output text`
             # echo $snapId
              
-         fi
+         # fi
     done
 fi
 
