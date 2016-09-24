@@ -67,25 +67,7 @@ then
     IFS=' ' read -r -a imageArray <<< "$desc"
     for img in "${imageArray[@]}"
     do
-         imgDate=`echo $img | awk -F'_' '{ print $3 }'`
-         echo "\n $img - $imgDate \n"
-		 
-         # if [ $deletionDate -gt $imgDate ] ;
-         # then
-             # echo $img
-             # imgId=`aws ec2 describe-images --owner self \
-             # --filter Name=name,Values="$img" \
-             # --query 'Images[*].{ID:ImageId}' \
-             # --output text`
-             # echo $imgId
-             
-             # snapId=`aws ec2 describe-images --owner self \
-            # --filter Name=name,Values="$img" \
-            # --query 'Images[*].BlockDeviceMappings[*].Ebs.{ID:SnapshotId}' \
-            # --output text`
-            # echo $snapId
-             
-         # fi
+		echo -e $img "\n"
     done
 fi
 
